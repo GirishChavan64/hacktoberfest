@@ -1,0 +1,79 @@
+{
+  "id": "case_01",
+  "title": "The Velvet Alibi",
+  "blurb": "A crooked promoter claims he spent all night sipping bourbon at the Blue Note, but the body at the rain-soaked docks tells another story.",
+  "setting": "A dim interrogation chamber at precinct 4. Rain lashes the frosted window. A single incandescent bulb swings above a scarred metal desk.",
+  "briefing": "At 11:45 PM last night, notorious loan shark Frankie 'Two-Tone' Morretti was executed in an alleyway by the North Docks. Witness reports place a luxury sedan fleeing the scene. Your suspect is Vincent 'Silky' Vance, a club promoter in heavy debt to Morretti. Vance claims he never set foot outside the Blue Note Jazz Lounge all night.",
+  "suspect": {
+    "name": "Vincent 'Silky' Vance",
+    "personality": "Smooth-talking, condescending, defensive under scrutiny, quick to deflect with swagger until cornered.",
+    "speech_style": "1940s noir slang, dismissive tone, refers to the detective as 'flatfoot' or 'detective', feigns aristocratic charm."
+  },
+  "truth_sheet": {
+    "what_really_happened": "Vincent Vance was drowned in debt to Frankie Morretti. At 11:10 PM, he slipped out of the Blue Note fire exit, drove his Packard to the docks, shot Morretti at 11:45 PM with an unregistered .38 revolver, scrambled across greasy crane rails, and returned through the jazz club's kitchen at 12:30 AM.",
+    "timeline": [
+      "10:15 PM: Vance arrives at the Blue Note Jazz Lounge.",
+      "10:45 PM: Vance orders drinks and pays bar tab with his credit card.",
+      "11:10 PM: Vance slips out the side alley door into the rain.",
+      "11:45 PM: Morretti shot at point-blank range near dock crane #4.",
+      "12:30 AM: Vance sneaks back into the Blue Note through the kitchen alley.",
+      "02:00 AM: Blue Note closes; Vance departs."
+    ],
+    "secret": "Vance killed Morretti to wipe out his $50,000 gambling marker. He stained his silk cuff with dock machinery grease while climbing down the crane pier."
+  },
+  "cover_story": "I was at the Blue Note Jazz Lounge from 10:00 PM until closing at 2:00 AM. I never left Booth Four for even a minute. I listened to Delilah sing three sets, paid everything in green cash like a gentleman, and don't know a thing about Frankie Morretti or the docks.",
+  "evidence": [
+    {
+      "id": "E1",
+      "name": "Blue Note Bar Tab",
+      "description": "Receipt from the Blue Note timestamped 10:45 PM. Paid via card ending in 4102 with Vincent Vance's signature, showing a $120 tab."
+    },
+    {
+      "id": "E2",
+      "name": "Waitstaff Logbook",
+      "description": "Floor manager notes for Booth Four: 'Guest unattended between 11:00 PM and 12:35 AM. Table sat empty with half-melted ice.'"
+    },
+    {
+      "id": "E3",
+      "name": "Coroner & Ballistics Report",
+      "description": "Frankie Morretti died instantly at approximately 11:45 PM from a .38 caliber slug fired at close range."
+    },
+    {
+      "id": "E4",
+      "name": "Lab Analysis: Silk Cuff Stain",
+      "description": "Chemical analysis of black grime on Vance's jacket sleeve: Heavy mineral machinery grease identical to lubricants used on North Dock freight cranes."
+    },
+    {
+      "id": "E5",
+      "name": "Tire Tread Plaster Cast",
+      "description": "Fresh tire impressions recovered from dock mud at 11:55 PM match Firestone Deluxe Champions fitted to Vance's 1948 Packard sedan."
+    }
+  ],
+  "contradictions": [
+    {
+      "id": "C1",
+      "description": "Cash payment claim conflicts with signed card receipt",
+      "why_it_conflicts": "Vance claims he paid for everything in green cash, but Evidence E1 shows a signed credit card transaction timestamped 10:45 PM."
+    },
+    {
+      "id": "C2",
+      "description": "Continuous booth presence conflicts with empty table log",
+      "why_it_conflicts": "Vance claims he never left Booth Four for even a single minute, yet Evidence E2 proves Booth Four was empty between 11:00 PM and 12:35 AM."
+    },
+    {
+      "id": "C3",
+      "description": "Clean night at club conflicts with industrial dock grease on silk cuff",
+      "why_it_conflicts": "Vance claims he never visited any docks or industrial areas, but Evidence E4 proves heavy freight crane grease on his jacket cuff."
+    },
+    {
+      "id": "C4",
+      "description": "Never left club conflicts with Packard tire tracks at murder docks",
+      "why_it_conflicts": "Vance claims he and his car stayed parked outside the Blue Note all night, but Evidence E5 proves his Packard's tires left fresh tracks in dock mud at 11:55 PM."
+    },
+    {
+      "id": "C5",
+      "description": "Claim of no involvement or knowledge of firearms conflicts with coroner .38 caliber findings",
+      "why_it_conflicts": "Vance claims he abhors violence and has never touched a firearm, but ballistics in E3 show an execution with a .38 weapon."
+    }
+  ]
+}

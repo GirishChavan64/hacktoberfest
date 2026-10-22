@@ -1,0 +1,79 @@
+{
+  "id": "case_03",
+  "title": "The Harbor Ledger",
+  "blurb": "A union reformer washes up beneath Pier 14 with a fractured skull. The dock foreman swears he was asleep in his locked shanty, but a waterlogged duplicate ledger reveals an $80,000 black hole.",
+  "setting": "A harbor precinct lockup reeking of stagnant seawater, machine oil, and cold iron. Distant foghorns groan through the heavy iron bars.",
+  "briefing": "At dawn today, longshoreman reformer Jimmy O'Malley was dragged from the icy tide under Pier 14, his head crushed by a blunt steel implement. Forensic clocks place the murder between 11:15 PM and 11:45 PM. Your suspect is 'Big Mike' Callahan, the brutal dock foreman whose empire O'Malley threatened with a union audit. Callahan insists he locked himself into his office shanty at 10 PM and never stirred until morning.",
+  "suspect": {
+    "name": "'Big Mike' Callahan",
+    "personality": "Combative, bull-necked, short-fused, intensely territorial over dock operations, resorts to threats and bluster when challenged.",
+    "speech_style": "Gruff waterfront slang, booming gravelly voice, calls the detective 'copper' or 'dick', peppered with dockworker terminology."
+  },
+  "truth_sheet": {
+    "what_really_happened": "Jimmy O'Malley uncovered Callahan's phantom payroll scheme, which skimmed union dues into syndicate bookmaking rackets. At 11:15 PM, Callahan cornered O'Malley inside Warehouse 3, bashed him with heavy steel cargo hook #7, threw the body off Pier 14 into the low tide, and hid the bloodied hook in his locker after wiping it down with diesel oil. He then kicked open his own shanty window to simulate an unbroken indoor alibi.",
+    "timeline": [
+      "10:15 PM: Callahan drinks at the Salty Dog Tavern, warning O'Malley to back off.",
+      "11:05 PM: Callahan uses his foreman master keycard to open Warehouse 3.",
+      "11:30 PM: Callahan bludgeons O'Malley with cargo hook #7 on the loading dock.",
+      "11:45 PM: Callahan dumps O'Malley and the ledger into the harbor channel.",
+      "12:15 AM: Callahan cuts his own outer padlock to fake a break-in story.",
+      "06:00 AM: Day shift watchman spots O'Malley's corpse trapped in the pilings."
+    ],
+    "secret": "Callahan's boots were soaked in salty harbor muck and barnacle residue while he was hauling the body onto the pier apron at midnight."
+  },
+  "cover_story": "I was locked tight inside my foreman shack from ten at night till the six o'clock shift whistle blew. Padlock was secured on the latch, I never stepped foot near Warehouse Three or Pier Fourteen, and our union books are square to the penny.",
+  "evidence": [
+    {
+      "id": "E1",
+      "name": "Waterlogged Duplicate Payroll Ledger",
+      "description": "Black leather binder pulled from O'Malley's overcoat pocket. Contains handwriting matching Callahan's initials, detailing eighty thousand dollars in diverted pension funds."
+    },
+    {
+      "id": "E2",
+      "name": "Foreman Keycard Electronic Punch Record",
+      "description": "Magnetic lock register for Warehouse 3 loading bay: Callahan's personal foreman keycard was scanned at 11:05 PM, exactly thirty minutes before the murder."
+    },
+    {
+      "id": "E3",
+      "name": "High-Tide Mud on Work Boots",
+      "description": "Heavy work boots seized from beside Callahan's wood stove. Soles are encrusted with green harbor bryozoan slime and low-tide silt found only at the waterline of Pier 14."
+    },
+    {
+      "id": "E4",
+      "name": "Foreman Shack Padlock Forensics",
+      "description": "The heavy brass padlock on Callahan's shack door was severed by hacksaw from the exterior alleyway, disproving his claim of locking it from within."
+    },
+    {
+      "id": "E5",
+      "name": "Cargo Hook #7 Ballistics & Hair Trace",
+      "description": "Forged iron stevedore hook found wrapped in oily rags in Callahan's locker. Even after being doused in diesel fuel, human hair and bone fragments matching O'Malley adhere to the hook barb."
+    }
+  ],
+  "contradictions": [
+    {
+      "id": "C1",
+      "description": "Clean square union books contradicted by waterlogged double ledger",
+      "why_it_conflicts": "Callahan claims union finances were completely legitimate and square, but Evidence E1 reveals an $80,000 embezzlement ledger kept in his own hand."
+    },
+    {
+      "id": "C2",
+      "description": "Never near Warehouse 3 contradicted by foreman keycard timestamp",
+      "why_it_conflicts": "Callahan claims he never went near Warehouse 3, but Evidence E2 proves his keycard opened the warehouse bay door at 11:05 PM."
+    },
+    {
+      "id": "C3",
+      "description": "Sleeping in dry shack contradicted by pier mud and tide silt on boots",
+      "why_it_conflicts": "Callahan claims he was asleep inside his dry shack all night, but Evidence E3 proves his work boots were saturated with low-tide Pier 14 mud."
+    },
+    {
+      "id": "C4",
+      "description": "Locked inside shack contradicted by padlock sawed from the outside",
+      "why_it_conflicts": "Callahan claims he remained locked safely inside his shack, but Evidence E4 proves the padlock was severed from the outside."
+    },
+    {
+      "id": "C5",
+      "description": "Denial of violence contradicted by victim's hair and bone on cargo hook #7",
+      "why_it_conflicts": "Callahan claims he never touched a weapon or harmed O'Malley, but Evidence E5 proves his personal cargo hook bears O'Malley's hair and tissue."
+    }
+  ]
+}

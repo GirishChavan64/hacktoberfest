@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INTERROGATION ROOM — A Noir Detective Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Oswald:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .brain-selector { display:flex; flex-wrap:wrap; align-items:center; gap:.6rem; margin-top:1rem; }
+        .brain-label { font-weight:700; letter-spacing:.08em; font-size:.8rem; }
+        .model-dropdown { background:#14110d; color:inherit; border:1px solid #6b5a3a; padding:.4rem .6rem; font:inherit; }
+        .brain-hint { opacity:.65; font-size:.75rem; }
+        .powered-by { display:block; opacity:.8; }
+        .powered-by.hidden { display:none; }
+    </style>
+</head>
+<body class="noir-theme">
+    <div class="vignette-overlay"></div>
+    <div class="scanlines"></div>
+
+    <header class="game-header">
+        <div class="header-content">
+            <div class="header-brand">
+                <span class="badge-icon">★</span>
+                <div>
+                    <h1 class="game-title">INTERROGATION ROOM</h1>
+                    <span class="game-subtitle">PRECINCT HOMICIDE DIVISION &bull; CASE FILE ARCHIVE</span>
+                    <span id="powered-by" class="game-subtitle powered-by hidden"></span>
+                </div>
+            </div>
+
+            <!-- In-game status bar (visible during active interrogation) -->
+            <div id="game-stats-bar" class="game-stats-bar hidden">
+                <div class="stat-box pressure-box">
+                    <div class="stat-label-row">
+                        <span class="stat-label">SUSPECT PRESSURE</span>
+                        <span id="pressure-val" class="stat-value">0%</span>
+                    </div>
+                    <div class="pressure-track">
+                        <div id="pressure-fill" class="pressure-fill" style="width: 0%;"></div>
+                    </div>
+                    <span id="demeanor-tag" class="demeanor-tag">DEMEANOR: CALM</span>
+                </div>
+
+                <div class="stat-box">
+                    <span class="stat-label">QUESTIONS LEFT</span>
+                    <span id="questions-val" class="stat-value highlight-gold">15</span>
+                </div>
+
+                <div class="stat-box">
+                    <span class="stat-label">ACCUSATION STRIKES</span>
+                    <div id="strikes-container" class="strikes-pips">
+                        <span class="strike-pip"></span>
+                        <span class="strike-pip"></span>
+                        <span class="strike-pip"></span>
+                    </div>
+                </div>
+
+                <button id="btn-voice" class="btn-secondary btn-sm" title="Read suspect answers aloud" aria-pressed="false">&#128266; VOICE: OFF</button>
+                <button id="btn-mute" class="btn-secondary btn-sm hidden" title="Silence the suspect voice">&#128263; MUTE</button>
+
+                <button id="btn-back-cases" class="btn-secondary btn-sm" title="Return to Case Files">
+                    &larr; CASE DOSSIERS
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- SCREEN 1: CASE SELECTION -->
+        <section id="screen-case-select" class="screen-section">
+            <div class="dossier-intro">
+                <h2 class="section-title">ACTIVE CASE DOSSIERS</h2>
+                <p class="section-desc">Select an unsolved investigation. You have 15 questions to interrogate the suspect, break their cover story, and uncover 3 fatal contradictions before their attorney walks them out.</p>
+
+                <!-- Suspect's Brain selector -->
+                <div class="brain-selector">
+                    <label class="brain-label" for="model-select">⚙ SUSPECT'S BRAIN</label>
+                    <select id="model-select" class="model-dropdown">
+                        <option value="">Loading models…</option>
+                    </select>
+                    <span class="brain-hint">Open-weight model powering the suspect's responses</span>
+                </div>
+            </div>
+
+            <div id="cases-grid" class="cases-grid">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>RETRIEVING POLICE ARCHIVES...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 2: ACTIVE INTERROGATION -->
+        <section id="screen-interrogation" class="screen-section hidden">
+            <!-- Case Briefing Banner -->
+            <div class="briefing-card">
+                <div class="briefing-header">
+                    <div>
+                        <span class="case-tag" id="current-case-id">CASE #01</span>
+                        <h2 id="current-case-title" class="case-headline">THE VELVET ALIBI</h2>
+                    </div>
+                    <div class="suspect-tag-pill">
+                        <span class="suspect-label">SUSPECT:</span>
+                        <span id="current-suspect-name" class="suspect-name">Vincent "Silky" Vance</span>
+                    </div>
+                </div>
+                <p id="current-case-briefing" class="case-briefing-text">Briefing text...</p>
+                <div class="setting-row">
+                    <span class="label">LOCATION:</span>
+                    <span id="current-case-setting" class="setting-text">Precinct 4 Interrogation Room</span>
+                </div>
+            </div>
+
+            <!-- Interrogation Workspace (2 Columns) -->
+            <div class="interrogation-layout">
+                <!-- Left Column: Transcript & Input -->
+                <div class="transcript-pane">
+                    <div class="pane-header">
+                        <span class="pane-title">RECORDED TRANSCRIPT</span>
+                        <span id="statement-counter-badge" class="counter-badge">0 STATEMENTS LOGGED</span>
+                    </div>
+
+                    <div id="transcript-feed" class="transcript-feed">
+                        <!-- Statements dynamically appended here -->
+                        <div class="transcript-empty-state">
+                            <p class="typewriter-text">The tape recorder clicks on. Suspect is seated beneath the desk lamp. Begin interrogation.</p>
+                        </div>
+                    </div>
+
+                    <!-- Question Input Bar -->
+                    <div class="interrogation-controls">
+                        <form id="ask-form" class="ask-form">
+                            <input 
+                                type="text" 
+                                id="question-input" 
+                                class="question-input" 
+                                placeholder="Type your interrogation question..." 
+                                autocomplete="off"
+                                maxlength="200"
+                                required
+                            >
+                            <button type="submit" id="btn-ask" class="btn-primary">
+                                ASK QUESTION
+                            </button>
+                        </form>
+                        <button type="button" id="btn-open-accuse" class="btn-accuse">
+                            ⚠️ PRESENT CONTRADICTION
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Column: Evidence Locker -->
+                <div class="evidence-pane">
+                    <div class="pane-header">
+                        <span class="pane-title">EVIDENCE LOCKER</span>
+                        <span id="evidence-count-badge" class="counter-badge">5 ITEMS</span>
+                    </div>
+
+                    <div id="evidence-list" class="evidence-list">
+                        <!-- Evidence cards rendered dynamically -->
+                    </div>
+
+                    <div class="suspect-profile-card">
+                        <div class="profile-header">
+                            <span class="stamp-classified">SUSPECT DOSSIER</span>
+                        </div>
+                        <div class="profile-body">
+                            <p><strong>Personality:</strong> <span id="suspect-personality">Guarded</span></p>
+                            <p><strong>Speech:</strong> <span id="suspect-style">Noir slang</span></p>
+                            <p><strong>Claimed Story:</strong> <span id="suspect-cover-story" class="cover-story-quote">"..."</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 3: GAME OVER RESOLUTION (WIN / LOSE) -->
+        <section id="screen-game-over" class="screen-section hidden">
+            <div class="game-over-modal-card">
+                <div id="game-over-stamp" class="game-over-stamp">CASE CLOSED</div>
+                <h2 id="game-over-title" class="game-over-title">CONFESSION SECURED</h2>
+                <div id="game-over-body" class="game-over-body">
+                    <!-- Dynamic resolution text -->
+                </div>
+                <div class="game-over-stats">
+                    <div class="stat-pill">
+                        <span class="lbl">FINAL PRESSURE</span>
+                        <span id="final-pressure" class="val">100%</span>
+                    </div>
+                    <div class="stat-pill">
+                        <span class="lbl">CONTRADICTIONS</span>
+                        <span id="final-contradictions" class="val">3 / 3</span>
+                    </div>
+                    <div class="stat-pill">
+                        <span class="lbl">STRIKES</span>
+                        <span id="final-strikes" class="val">0 / 3</span>
+                    </div>
+                    <div class="stat-pill">
+                        <span class="lbl">QUESTIONS REMAINING</span>
+                        <span id="final-questions" class="val">11</span>
+                    </div>
+                </div>
+                <div id="result-card" class="result-card">
+                    <div class="result-card-stamp">CASE CLOSED</div>
+                    <div id="result-case-title" class="result-card-title"></div>
+                    <div class="result-card-score"><span class="lbl">SCORE</span><span id="result-score" class="score-val">0</span></div>
+                    <div class="result-card-grid">
+                        <div><span class="lbl">QUESTIONS USED</span><span id="result-questions" class="val">0 / 15</span></div>
+                        <div><span class="lbl">STRIKES</span><span id="result-strikes" class="val">0 / 3</span></div>
+                        <div class="wide"><span class="lbl">SUSPECT'S BRAIN</span><span id="result-model" class="val"></span></div>
+                    </div>
+                    <button type="button" id="btn-copy-result" class="btn-secondary">COPY RESULT</button>
+                </div>
+                <div class="game-over-actions">
+                    <button id="btn-replay-case" class="btn-secondary">RE-OPEN CASE</button>
+                    <button id="btn-select-another" class="btn-primary">CHOOSE ANOTHER DOSSIER</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- CONTRADICTION PRESENTATION MODAL -->
+    <div id="accuse-modal" class="modal-backdrop hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div>
+                    <span class="modal-tag">FORMAL CHARGE</span>
+                    <h3 class="modal-title">PRESENT CONTRADICTION</h3>
+                </div>
+                <button id="btn-modal-close" class="modal-close-btn">&times;</button>
+            </div>
+
+            <form id="accuse-form" class="modal-body">
+                <p class="modal-instructions">
+                    Catch the suspect lying. Pair a suspect quote with physical evidence or another quote, and state your logical case.
+                </p>
+
+                <!-- Part 1: First Statement Selection -->
+                <div class="form-group">
+                    <label class="form-label" for="accuse-quote-1">
+                        1. SELECT SUSPECT STATEMENT:
+                    </label>
+                    <select id="accuse-quote-1" class="form-select" required>
+                        <option value="">-- Choose a recorded statement --</option>
+                    </select>
+                </div>
+
+                <!-- Part 2: Choose pairing mode (Evidence OR Second Statement) -->
+                <div class="form-group">
+                    <label class="form-label">2. CONTRADICT AGAINST:</label>
+                    <div class="pairing-tabs">
+                        <button type="button" id="tab-evidence" class="tab-btn active">PHYSICAL EVIDENCE</button>
+                        <button type="button" id="tab-second-quote" class="tab-btn">ANOTHER SUSPECT QUOTE</button>
+                    </div>
+
+                    <div id="pairing-evidence-container" class="pairing-container">
+                        <select id="accuse-evidence" class="form-select">
+                            <option value="">-- Select evidence item --</option>
+                        </select>
+                    </div>
+
+                    <div id="pairing-quote-container" class="pairing-container hidden">
+                        <select id="accuse-quote-2" class="form-select">
+                            <option value="">-- Select second statement --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Part 3: Explanation -->
+                <div class="form-group">
+                    <label class="form-label" for="accuse-explanation">
+                        3. DETECTIVE'S EXPLANATION:
+                    </label>
+                    <textarea 
+                        id="accuse-explanation" 
+                        class="form-textarea" 
+                        rows="3" 
+                        placeholder="Explain precisely why the suspect's statement contradicts the evidence or their earlier testimony..."
+                        required
+                    ></textarea>
+                </div>
+
+                <div id="accuse-feedback" class="accuse-feedback hidden"></div>
+
+                <div class="modal-footer">
+                    <button type="button" id="btn-accuse-cancel" class="btn-secondary">CANCEL</button>
+                    <button type="submit" id="btn-accuse-submit" class="btn-accuse">
+                        SUBMIT ACCUSATION
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

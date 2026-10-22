@@ -1,0 +1,80 @@
+{
+  "id": "case_02",
+  "title": "Poison in Neon",
+  "blurb": "A wealthy socialite collapses over vintage port in her penthouse. Her research chemist husband swears he was delivering a keynote across town, but the bitter scent of cyanide hangs heavy in the air.",
+  "setting": "Precinct 6 interrogation chamber. Green neon from the all-night pharmacy outside reflects off wet asphalt and cuts across the suspect's tailored three-piece suit.",
+  "briefing": "At 8:30 PM, Beatrice Sterling died of acute cyanide poisoning in her penthouse drawing room. The glass next to her was coated with prussic acid. Her husband, Dr. Julian Sterling, claims he spent the entire evening from 7:30 to 11:00 PM at the Grand Regent Hotel delivering an academic lecture on industrial solvents. He denies ever handling cyanide outside secure university premises.",
+  "suspect": {
+    "name": "Dr. Julian Sterling",
+    "personality": "Arrogant, condescending, coldly intellectual, disdainful of police procedure, believes himself far too clever to be caught.",
+    "speech_style": "High-register academic English, crisp pronunciation, patronizing vocabulary, addresses the detective as 'officer' or 'my dear inspector'."
+  },
+  "truth_sheet": {
+    "what_really_happened": "Dr. Sterling discovered Beatrice was preparing to file for divorce and audit his university laboratory accounts, which would uncover his embezzlement. Before leaving for the hotel, he dosed her crystal port decanter with 50ml of liquid cyanide. At the banquet, he set up a pre-recorded phonograph to broadcast his speech, slipped out the service stairs at 7:45 PM, and rushed to Union Station to buy an escape ticket to Montreal before returning home to 'discover' the body.",
+    "timeline": [
+      "06:30 PM: Dr. Sterling extracts 50ml of cyanide from university vault.",
+      "07:00 PM: Dr. Sterling spikes the port decanter in the penthouse.",
+      "07:30 PM: Grand Regent banquet begins; Sterling sets phonograph reel.",
+      "07:45 PM: Sterling slips out hotel fire escape into the rain.",
+      "08:15 PM: Beatrice drinks the poisoned port and dies.",
+      "09:30 PM: Sterling buys a cash ticket to Montreal at Union Station under alias 'J. Vance'.",
+      "11:15 PM: Sterling returns to penthouse and stages shock."
+    ],
+    "secret": "Sterling kept the silver dropper used to administer the poison in his waistcoat, convinced detectives would never distinguish almond-scented cyanide residue from his peppermint breath drops."
+  },
+  "cover_story": "I was at the Grand Regent Hotel speaking before sixty colleagues of the Chemical Society from seven-thirty until eleven o'clock without stepping off the podium. I never touched Beatrice's evening wine, I had no access to lethal cyanide, and I have never set foot in Union Station in my life.",
+  "evidence": [
+    {
+      "id": "E1",
+      "name": "Grand Regent Service Log & Audio Reel",
+      "description": "Hotel banquet staff notes: 'Dr. Sterling's address was played from a recorded magnetic wire spool on the stage loudspeaker while the doctor slipped out the service exit at 7:45 PM.'"
+    },
+    {
+      "id": "E2",
+      "name": "Crystal Port Decanter Fingerprints",
+      "description": "Latent prints lifted from the neck of the cyanide-laced port decanter yield an exact ten-point match to Dr. Julian Sterling's right thumb and forefinger."
+    },
+    {
+      "id": "E3",
+      "name": "University Lab Inventory Audit",
+      "description": "Chemistry Department hazardous material ledger: 50 milliliters of reagent-grade sodium cyanide logged missing from Dr. Sterling's private locked cabinet as of yesterday."
+    },
+    {
+      "id": "E4",
+      "name": "Union Station Ticket Carbon",
+      "description": "Ticket carbon timestamped 9:30 PM for the overnight Montreal Express. Stationmaster confirms purchaser matched Sterling's height and wore a bespoke tweed overcoat."
+    },
+    {
+      "id": "E5",
+      "name": "Silver Eye Dropper Analysis",
+      "description": "Silver dropper found in Sterling's breast pocket. Mass spectrometry reveals micro-droplets of concentrated hydrogen cyanide within the rubber bulb."
+    }
+  ],
+  "contradictions": [
+    {
+      "id": "C1",
+      "description": "Podium alibi contradicted by recorded audio reel and fire escape departure",
+      "why_it_conflicts": "Sterling claims he remained on the podium continuously until 11 PM, but Evidence E1 proves he played a recorded spool and fled out the service exit at 7:45 PM."
+    },
+    {
+      "id": "C2",
+      "description": "Claim of never touching the wine contradicted by decanter thumbprint",
+      "why_it_conflicts": "Sterling claims he never touched Beatrice's port, but Evidence E2 proves his thumbprint is on the neck of the poisoned decanter."
+    },
+    {
+      "id": "C3",
+      "description": "Claim of no cyanide access contradicted by missing lab inventory",
+      "why_it_conflicts": "Sterling claims he had zero access to lethal poisons, but Evidence E3 proves 50ml of cyanide vanished directly from his private university locker."
+    },
+    {
+      "id": "C4",
+      "description": "Denial of visiting Union Station contradicted by Montreal ticket carbon",
+      "why_it_conflicts": "Sterling claims he never went near Union Station, but Evidence E4 proves an overnight ticket to Montreal was bought by him at 9:30 PM."
+    },
+    {
+      "id": "C5",
+      "description": "Innocent pocket dropper contradicted by cyanide spectrometry",
+      "why_it_conflicts": "Sterling claims the silver dropper contained harmless eye medication, but Evidence E5 proves it was soaked in concentrated hydrogen cyanide."
+    }
+  ]
+}
